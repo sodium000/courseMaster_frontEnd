@@ -8,7 +8,8 @@ import { getCourseById } from "../../services/courses.api";
 
 export default function StudentDashboard() {
     const dispatch = useDispatch();
-    const { enrollments, loading, error } = useSelector((state) => state.enrollment);
+    const { enrollments: rawEnrollments, loading, error } = useSelector((state) => state.enrollment);
+    const enrollments = Array.isArray(rawEnrollments) ? rawEnrollments : [];
     const { currentCourse } = useSelector((state) => state.courses);
 
     const [expandedCourse, setExpandedCourse] = useState(null);
@@ -258,7 +259,7 @@ export default function StudentDashboard() {
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-2xl sm:text-3xl font-bold text-primary">
-                                                    {Math.round((enrollment.progress?.completedLessons?.length / (stats?.courseData?.syllabus?.reduce((acc, m) => acc + (m.lessons?.length || 0), 0))) * 100)}%
+                                                    {enrollment.progress?.percent !== undefined ? enrollment.progress.percent : 0}%
                                                 </p>
                                             </div>
                                         </div>

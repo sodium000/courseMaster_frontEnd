@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
     LayoutDashboard,
     BookOpen,
@@ -12,34 +12,31 @@ import {
     X,
 } from "lucide-react";
 
+// eslint-disable-next-line no-unused-vars
+function SidebarItem({ to, label, Icon, end = true, onClick, showLabel = true }) {
+    const linkClass = ({ isActive }) => {
+        const baseClasses = "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200";
+        if (isActive) {
+            return `${baseClasses} bg-primary text-primary-content font-semibold shadow-md`;
+        }
+        return `${baseClasses} text-base-content font-medium hover:bg-primary/20 hover:text-primary`;
+    };
+
+    return (
+        <NavLink
+            to={to}
+            end={end}
+            onClick={onClick}
+            className={linkClass}
+        >
+            <Icon className="w-5 h-5 shrink-0" />
+            {showLabel && <span className="text-sm sm:text-base">{label}</span>}
+        </NavLink>
+    );
+}
+
 export default function AdminSidebar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const location = useLocation();
-
-    const Item = ({ to, label, Icon, end = true, onClick, showLabel = true }) => {
-        const linkClass = ({ isActive: navIsActive }) => {
-            // Custom active check for routes with children
-            let isActive = navIsActive;
-
-            const baseClasses = "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200";
-            if (isActive) {
-                return `${baseClasses} bg-primary text-primary-content font-semibold shadow-md`;
-            }
-            return `${baseClasses} text-base-content font-medium hover:bg-primary/20 hover:text-primary`;
-        };
-
-        return (
-            <NavLink
-                to={to}
-                end={end}
-                onClick={onClick}
-                className={linkClass}
-            >
-                <Icon className="w-5 h-5 shrink-0" />
-                {showLabel && <span className="text-sm sm:text-base">{label}</span>}
-            </NavLink>
-        );
-    };
 
     const menuItems = [
         { to: "/admin", label: "Overview", Icon: LayoutDashboard, end: true },
@@ -84,7 +81,7 @@ export default function AdminSidebar() {
                             </button>
                         </div>
                         {menuItems.map((item) => (
-                            <Item
+                            <SidebarItem
                                 key={item.to}
                                 to={item.to}
                                 label={item.label}
@@ -101,7 +98,7 @@ export default function AdminSidebar() {
             {/* Desktop sidebar */}
             <aside className="hidden lg:block bg-base-200 border-r-2 border-base-300 min-h-screen w-64 p-4 space-y-2 transition-all duration-200 shadow-lg">
                 {menuItems.map((item) => (
-                    <Item
+                    <SidebarItem
                         key={item.to}
                         to={item.to}
                         label={item.label}

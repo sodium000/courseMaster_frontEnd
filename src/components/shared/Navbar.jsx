@@ -10,8 +10,8 @@ export default function Navbar() {
     const token = getToken();
     const [me, setMe] = useState(null);
 
-    const navLinkClass = ({ isActive, to }) =>
-        (isActive || window.location.pathname.startsWith("/"))
+    const navLinkClass = ({ isActive }) =>
+        isActive
             ? "text-primary font-semibold"
             : "text-base-content/80 hover:text-primary";
 
@@ -139,7 +139,7 @@ export default function Navbar() {
                             className="
                 menu menu-sm dropdown-content mt-3 p-3 shadow
                 bg-base-100 rounded-box w-56 border border-base-300
-                items-center text-center max-h-32 overflow-hidden
+                items-center text-center max-h-[85vh] overflow-y-auto
               "
                         >
                             <li><NavLink className={navLinkClass} to="/">Home</NavLink></li>

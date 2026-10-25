@@ -7,7 +7,7 @@ export default function CourseCard({ course }) {
     return (
         <div className="card bg-base-100/90 backdrop-blur border border-base-300 shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all duration-300 group rounded-3xl overflow-hidden flex flex-col h-full hover:-translate-y-1">
             {/* Visual Top Header Banner */}
-            <div className="h-32 bg-gradient-to-r from-[#78A083]/30 via-[#50727B]/30 to-[#344955]/40 p-4 relative flex flex-col justify-between overflow-hidden">
+            <div className="h-32 bg-linear-to-r from-[#78A083]/30 via-[#50727B]/30 to-[#344955]/40 p-4 relative flex flex-col justify-between overflow-hidden">
                 <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-primary/20 rounded-full blur-xl pointer-events-none"></div>
 
                 <div className="flex justify-between items-start relative z-10">
@@ -32,16 +32,16 @@ export default function CourseCard({ course }) {
 
             <div className="card-body p-5 flex flex-col flex-1 justify-between space-y-4">
                 <div>
-                    <h2 className="card-title text-lg sm:text-xl font-bold leading-snug group-hover:text-primary transition-colors whitespace-nowrap overflow-visible">
+                    <h2 className="card-title text-lg sm:text-xl font-bold leading-snug group-hover:text-primary transition-colors line-clamp-2 min-h-[3.25rem]">
                         {course.title}
                     </h2>
 
-                    <p className="text-sm text-base-content/70 mt-2 flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center text-xs">
+                    <div className="text-sm text-base-content/70 mt-2 flex items-center gap-2">
+                        <span className="w-6 h-6 rounded-full bg-primary/20 text-primary font-bold inline-flex items-center justify-center text-xs">
                             {course.instructorName ? course.instructorName[0].toUpperCase() : "I"}
-                        </div>
+                        </span>
                         <span className="font-semibold text-xs text-base-content/80">By {course.instructorName}</span>
-                    </p>
+                    </div>
                 </div>
 
                 {course.tags && course.tags.length > 0 && (

@@ -10,7 +10,7 @@ api.interceptors.request.use(
   (config) => {
     const token = getToken();
     if (token) {
-      config.headers.Authorization = token;
+      config.headers.Authorization = token.startsWith("Bearer ") ? token : `Bearer ${token}`;
     }
     return config;
   },
@@ -22,9 +22,10 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid
-      clearToken();
-      window.location.href = "/login";
+      // Token expired or invalid - only redirect if not already on login/register
+      if (typeof window !== "undefined" && !window.location.pathname.includes("/login") && !window.location.pathname.includes("/register")) {
+        clearToken();
+      }
     }
     return Promise.reject(error);
   }
